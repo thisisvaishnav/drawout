@@ -2,24 +2,37 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { middleware } from "./middleware";
-import { CreateRoomSchema, SigninSchema } from "@repo/common/types";
+import { CreateUserSchema, SigninSchema, UserSchema } from "@repo/common/types";
+import { prismaClient  } from "@repo/db/index";
 
 const app = express();
 
-app.post("/signup", (req, res) => {
-    const data = CreateRoomSchema.safeParse(req.body);
+app.post("/signup", async (req, res) => {
+    const data = CreateUserSchema.safeParse(req.body);
     if ( !data.success) {
         return res.json({
             message: "Incorect inputs"
         })
         return;
     }
-    res.json({
-        userId:"123"
-    })
+
+    try { // create user in db 
+        await prismaClient.user.create({
+            data: {
+                email: data.data.email,
+                password: data.data.password,
+                name: data.data.username,
+            }
+        })
+        res.status(201).json({
+            message: "User created successfully"
+        })
+    } catch (error) {
+        res.status(411).json({
+            message: "User already exists"
+        })
+    } 
 });
-
-
 
 // POST /login - Authenticates user and returns a JWT token
 app.post("/login", (req, res) => {
