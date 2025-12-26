@@ -26,9 +26,6 @@ importers:
       '@repo/common':
         specifier: workspace:*
         version: link:../../packages/common
-      '@repo/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -107,7 +104,14 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1
 
-  packages/backend-common: {}
+  packages/backend-common:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/common:
     dependencies:
@@ -118,6 +122,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/db:
     dependencies:
@@ -131,9 +138,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.15.3
 
   packages/eslint-config:
     devDependencies:
