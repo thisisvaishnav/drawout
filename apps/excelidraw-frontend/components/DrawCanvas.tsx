@@ -210,6 +210,14 @@ export const DrawCanvas = ({ roomId }: DrawCanvasProps) => {
         activeShapeRef.current = shape;
     };
 
+    const getShapeButtonClass = (shape: ShapeType) => {
+        if (activeShape === shape) {
+            return "rounded-lg border border-indigo-300 bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition-colors";
+        }
+
+        return "rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 transition-colors hover:bg-white/10";
+    };
+
     const handleShapeKeyDown = (
         event: React.KeyboardEvent<HTMLButtonElement>,
         shape: ShapeType
@@ -262,11 +270,7 @@ export const DrawCanvas = ({ roomId }: DrawCanvasProps) => {
                     type="button"
                     onClick={() => handleShapeSelect("rectangle")}
                     onKeyDown={event => handleShapeKeyDown(event, "rectangle")}
-                    className={`rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${
-                        activeShape === "rectangle"
-                            ? "border-indigo-300 bg-indigo-500 text-white"
-                            : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
-                    }`}
+                    className={getShapeButtonClass("rectangle")}
                     aria-label="Select rectangle tool"
                     tabIndex={0}
                 >
@@ -276,11 +280,7 @@ export const DrawCanvas = ({ roomId }: DrawCanvasProps) => {
                     type="button"
                     onClick={() => handleShapeSelect("circle")}
                     onKeyDown={event => handleShapeKeyDown(event, "circle")}
-                    className={`rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${
-                        activeShape === "circle"
-                            ? "border-indigo-300 bg-indigo-500 text-white"
-                            : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
-                    }`}
+                    className={getShapeButtonClass("circle")}
                     aria-label="Select circle tool"
                     tabIndex={0}
                 >

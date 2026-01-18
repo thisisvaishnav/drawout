@@ -1,3 +1,4 @@
+import { AuthGate } from "@/components/AuthGate";
 import { DrawCanvas } from "@/components/DrawCanvas";
 
 export default async function CanvasPage({
@@ -9,7 +10,11 @@ export default async function CanvasPage({
 }) {
     const roomId = (await params).roomId;
 
-    return <DrawCanvas roomId={roomId} />;
+    return (
+        <AuthGate>
+            <DrawCanvas roomId={roomId} />
+        </AuthGate>
+    );
 }
 
 
