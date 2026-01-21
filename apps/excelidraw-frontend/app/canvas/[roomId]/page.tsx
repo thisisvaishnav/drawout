@@ -36,21 +36,3 @@ export default async function CanvasPage({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
